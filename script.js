@@ -397,4 +397,302 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.5 });
 
     stats.forEach(stat => observer.observe(stat));
+
+    // Initialize trading chart
+    const initTradingChart = () => {
+        const ctx = document.getElementById('tradingChart').getContext('2d');
+        
+        // Generate sample data
+        const generateData = () => {
+            const data = [];
+            let value = 43000;
+            for (let i = 0; i < 50; i++) {
+                value = value + Math.random() * 200 - 100;
+                data.push(value);
+            }
+            return data;
+        };
+
+        const data = generateData();
+        
+        // Create gradient
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.2)');
+        gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array(50).fill(''),
+                datasets: [{
+                    label: 'BTC/USDT',
+                    data: data,
+                    borderColor: '#6366F1',
+                    borderWidth: 2,
+                    backgroundColor: gradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#6366F1',
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1E293B',
+                        titleColor: '#F8FAFC',
+                        bodyColor: '#94A3B8',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            label: (context) => {
+                                return `$${context.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: false
+                    }
+                }
+            }
+        });
+    };
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Initialize time controls
+    const initTimeControls = () => {
+        const timeButtons = document.querySelectorAll('.time-btn');
+        timeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                timeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    };
+
+    // Initialize all components
+    initTradingChart();
+    initTimeControls();
+
+    function initDashboardCharts() {
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false,
+                    padding: 10,
+                    backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#374151',
+                    borderWidth: 1,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.parsed.y}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    display: false
+                },
+                y: {
+                    display: false
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0,
+                    hitRadius: 0
+                },
+                line: {
+                    tension: 0.4
+                }
+            }
+        };
+
+        // Alpha Strategy Chart
+        const alphaCtx = document.getElementById('alphaChart').getContext('2d');
+        const alphaData = generateChartData(24.5);
+        new Chart(alphaCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 12}, (_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    data: alphaData,
+                    borderColor: '#10B981',
+                    backgroundColor: createGradient(alphaCtx, '#10B981'),
+                    fill: true,
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+
+        // Beta Strategy Chart
+        const betaCtx = document.getElementById('betaChart').getContext('2d');
+        const betaData = generateChartData(18.7);
+        new Chart(betaCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 12}, (_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    data: betaData,
+                    borderColor: '#6366F1',
+                    backgroundColor: createGradient(betaCtx, '#6366F1'),
+                    fill: true,
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+
+        // Gamma Strategy Chart
+        const gammaCtx = document.getElementById('gammaChart').getContext('2d');
+        const gammaData = generateChartData(15.2);
+        new Chart(gammaCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 12}, (_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    data: gammaData,
+                    borderColor: '#F59E0B',
+                    backgroundColor: createGradient(gammaCtx, '#F59E0B'),
+                    fill: true,
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+    }
+
+    function generateChartData(finalReturn) {
+        const points = 12;
+        const volatility = 0.3;
+        const data = [];
+        let currentValue = 0;
+
+        for (let i = 0; i < points; i++) {
+            const progress = i / (points - 1);
+            const targetValue = finalReturn * progress;
+            const randomness = (Math.random() - 0.5) * volatility * finalReturn;
+            currentValue = targetValue + randomness;
+            data.push(currentValue);
+        }
+
+        // Ensure the last point matches the target return
+        data[points - 1] = finalReturn;
+        return data;
+    }
+
+    function createGradient(ctx, color) {
+        const gradient = ctx.createLinearGradient(0, 0, 0, 150);
+        gradient.addColorStop(0, `${color}20`);
+        gradient.addColorStop(1, `${color}00`);
+        return gradient;
+    }
+
+    // Initialize all components when DOM is loaded
+    initTradingChart();
+    initDashboardCharts();
+
+    // Initialize performance chart
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    
+    // Generate performance data
+    const generatePerformanceData = () => {
+        const data = [];
+        let value = 0;
+        for (let i = 0; i < 20; i++) {
+            value += Math.random() * 20 - 5;
+            data.push(value);
+        }
+        return data.map(v => v + 355.3); // Adjust to match final value
+    };
+
+    // Create gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(34, 197, 94, 0.2)');
+    gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+
+    // Create chart
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array(20).fill(''),
+            datasets: [{
+                data: generatePerformanceData(),
+                backgroundColor: (context) => {
+                    const value = context.raw;
+                    return value >= 355.3 ? '#22C55E' : '#4F46E5';
+                },
+                borderWidth: 0,
+                borderRadius: 4,
+                barThickness: 12,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: false
+                }
+            },
+            scales: {
+                x: {
+                    display: false,
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    display: false,
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
 });

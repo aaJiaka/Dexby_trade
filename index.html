@@ -3,107 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dexby - Next-Gen Trading Platform</title>
+    <title>Dexby - Trading Platform</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="geometric-pattern"></div>
+    
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M7 12L10 15L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <img src="logo.png" alt="Dexby" class="logo-img">
                 Dexby
             </a>
             <div class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#how-it-works">How it works</a>
+                <a href="#how-it-works">How It Works</a>
                 <a href="#market">Market</a>
                 <a href="#pricing">Pricing</a>
                 <button class="get-started-btn">Get Started</button>
             </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
     <main>
-        <div class="container">
-            <section class="hero-section">
+        <section class="hero-section">
+            <div class="container">
                 <div class="hero-content">
-                    <span class="badge">AI-Powered Trading</span>
-                    <h1>Next Generation Trading Platform</h1>
+                    <div class="badge">Next-Gen Trading Platform</div>
+                    <h1>Торговля и аналитика Onchain при помощи ИИ в Telegram</h1>
                     <p class="hero-description">
-                        Experience the future of trading with our AI-powered platform. Get real-time insights, automated strategies, and professional-grade tools.
+                        Используй лучшие стратегии "опытных" игроков рынка и применяйте автоматизированную торговлю "Onchain" с использованием ИИ.
                     </p>
                     <div class="hero-buttons">
-                        <button class="primary-btn">Start Trading</button>
-                        <button class="secondary-btn">Watch Demo</button>
+                        <button class="start-trading-btn">Start Trading</button>
+                        <button class="view-demo-btn">View Demo</button>
                     </div>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-value" data-value="5000000">5,000,000</span>
-                            <span class="stat-label">Trading Volume</span>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="stats-card">
+                        <div class="stats-header">
+                            <h2>Dexby Стратегии</h2>
+                            <div class="win-rate">Win Rate: 76.2%</div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-value" data-value="50000">50,000</span>
-                            <span class="stat-label">Active Users</span>
+                        <div class="performance">
+                            <div class="performance-value">+355.3%</div>
+                            <div class="performance-period">Last 30 days performance</div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-value" data-value="120">120</span>
-                            <span class="stat-label">Countries</span>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        <div class="time-controls">
+                            <button class="time-btn active">1W</button>
+                            <button class="time-btn">1M</button>
+                            <button class="time-btn">3M</button>
+                            <button class="time-btn">YTD</button>
+                        </div>
+                        <div class="algorithm-info">
+                            <div class="algorithm-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="algorithm-text">
+                                ALGORITHM
+                            </div>
+                            <p class="algorithm-description">
+                                Эффективность стратегии растет. Ожидается 12%-ное увеличение победных ставок в следующем месяце
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="strategy-card">
-                    <div class="strategy-header">
-                        <h3>Alpha Strategy</h3>
-                        <svg class="strategy-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 13L12 9L16 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="win-rate">
-                        <span class="label">Win Rate:</span>
-                        <span class="value success">78.5%</span>
-                    </div>
-                    <div class="performance">
-                        <h4>+245.8%</h4>
-                        <span class="period">Last 12 months</span>
-                    </div>
-                    <div class="chart-container">
-                        <div class="chart-bar" style="height: 65%"></div>
-                        <div class="chart-bar" style="height: 72%"></div>
-                        <div class="chart-bar success" style="height: 78%"></div>
-                        <div class="chart-bar" style="height: 70%"></div>
-                        <div class="chart-bar success" style="height: 75%"></div>
-                        <div class="chart-bar" style="height: 68%"></div>
-                        <div class="chart-bar success" style="height: 76%"></div>
-                        <div class="chart-bar" style="height: 71%"></div>
-                        <div class="chart-bar success" style="height: 77%"></div>
-                        <div class="chart-bar" style="height: 73%"></div>
-                    </div>
-                    <div class="time-controls">
-                        <button class="time-btn active" data-period="1H">1H</button>
-                        <button class="time-btn" data-period="4H">4H</button>
-                        <button class="time-btn" data-period="1D">1D</button>
-                        <button class="time-btn" data-period="1W">1W</button>
-                    </div>
-                    <div class="prediction-box">
-                        <div class="prediction-header">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 1V15M1 8H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <span class="label">Next Trade Prediction</span>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="container">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <h3>Alpha Strategy</h3>
+                            <div class="performance-badge positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +24.5%
+                            </div>
                         </div>
-                        <p class="prediction-text">
-                            High probability of upward movement in the next 4 hours based on market sentiment and technical analysis.
-                        </p>
+                        <div class="dashboard-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Win Rate</span>
+                                <span class="stat-value success">78.5%</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Profit Factor</span>
+                                <span class="stat-value">2.4</span>
+                            </div>
+                        </div>
+                        <div class="mini-chart">
+                            <canvas id="alphaChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <h3>Beta Strategy</h3>
+                            <div class="performance-badge positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +18.7%
+                            </div>
+                        </div>
+                        <div class="dashboard-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Win Rate</span>
+                                <span class="stat-value success">72.3%</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Profit Factor</span>
+                                <span class="stat-value">1.9</span>
+                            </div>
+                        </div>
+                        <div class="mini-chart">
+                            <canvas id="betaChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <h3>Gamma Strategy</h3>
+                            <div class="performance-badge positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +15.2%
+                            </div>
+                        </div>
+                        <div class="dashboard-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Win Rate</span>
+                                <span class="stat-value success">68.9%</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Profit Factor</span>
+                                <span class="stat-value">1.7</span>
+                            </div>
+                        </div>
+                        <div class="mini-chart">
+                            <canvas id="gammaChart"></canvas>
+                        </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
